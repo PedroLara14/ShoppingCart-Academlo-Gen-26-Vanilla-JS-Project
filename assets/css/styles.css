@@ -228,6 +228,86 @@ header {
     place-self: baseline;
 }
 
+/* PRODUCTOS */
+
+.products {
+    overflow: hidden;
+    display: grid;
+    gap: 2rem;
+    padding: 0 2rem;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr))
+}
+
+.product {
+    border-radius: 1rem;
+    overflow: hidden
+}
+
+.product__img {
+    padding: 1rem;
+    background-color: var(--card-color)
+}
+
+.product__img img {
+    transition: transform .5s
+}
+
+.product:hover img {
+    transform: translateY(-10px)
+}
+
+.product__info {
+    background-color: var(--container-color);
+    padding: 1.5rem;
+    position: relative;
+    min-height: 109px
+}
+
+.bx-plus {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: -1.1rem;
+    background-color: var(--container-color);
+    padding: .5rem;
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-general);
+    color: var(--title-color);
+    border-radius: 50%;
+    transition: background-color .5s,color .5s
+}
+
+.bx-plus:hover {
+    background-color: var(--first-color);
+    color: var(--body-color);
+}
+
+.product__info h3 {
+    color: var(--title-color);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product__info--stock {
+    color: var(--text-color-light);
+    font-size: .8rem;
+}
+
+.product__info p {
+    color: var(--title-color);
+    font-weight: 500;
+}
+
+.showModalProduct {
+    transition: color .5s;
+    cursor: pointer;
+}
+
+.showModalProduct:hover {
+    color: var(--first-color)
+}
+
 /* FOOTER */
 
 footer {
