@@ -1,0 +1,358 @@
+@import"https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap";
+
+:root {
+    --first-color: hsl(354, 78%, 60%);
+    --button-color: hsl(0, 0%, 17%);
+    --button-color-alt: hsl(0, 0%, 21%);
+    --card-color: hsl(0, 0%, 90%);
+    --title-color: hsl(0, 0%, 15%);
+    --text-color: hsl(0, 0%, 35%);
+    --text-color-light: hsl(0, 0%, 55%);
+    --body-color: hsl(206, 4%, 97%);
+    --container-color: hsl(0, 0%, 100%);
+    --border-color: hsl(0, 0%, 94%);
+    --h-header: 3rem;
+    --shadow-general: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    --z-header-nav: 1000;
+    --z-handle-icon-navbar: 2000;
+    --z-content-cart: 3000;
+    --z-modalproduct: 4000
+}
+
+body.dark-theme {
+    --first-color: hsl(182, 53%, 74%);
+    --button-color: hsl(246, 16%, 12%);
+    --button-color-alt: hsl(0, 0%, 28%);
+    --card-color: hsla(246, 16%, 5%);
+    --title-color: hsl(0, 0%, 95%);
+    --text-color: hsl(0, 0%, 75%);
+    --body-color: hsl(249, 19%, 14%);
+    --container-color: hsl(246, 16%, 12%);
+    --border-color: hsl(0, 0%, 20%)
+}
+
+body::-webkit-scrollbar {
+    width: 8px;
+    height: 8px
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--first-color);
+    border-radius: 10px
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--container-color);
+    border-radius: 10px
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: roboto
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    background-color: var(--body-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+ul {
+    list-style: none
+}
+
+img {
+    width: 100%;
+    display: block
+}
+
+.container {
+    max-width: 1024px;
+    margin: auto
+}
+
+/* HEADER */
+
+header {
+    background-color: transparent;
+    height: var(--h-header);
+    padding: 0 1rem;
+    position: fixed;
+    width: 100%;
+    z-index: var(--z-header-nav);
+}
+
+
+/* NAVBAR */
+
+.navbar {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.navbar_logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav_logo-icon {
+    width: 40px;
+    fill: var(--first-color);
+}
+
+.nav_logo-icon + span {
+    font-weight: 500;
+    color: var(--title-color);
+}
+
+.navbar_menu {
+    background-color: var(--container-color);
+    position: fixed;
+    left: 110%;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: left .5s
+}
+
+
+.navbar_menu li {
+    font-size: 1.5rem;
+    color: var(--title-color);
+}
+
+.link__active {
+    color: var(--first-color);
+}
+
+.navbar__icons {
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: var(--title-color);
+    user-select: none;
+    display: flex;
+    gap: .5rem;
+}
+
+
+
+#iconShowCart {
+    position: relative;
+}
+
+.totalAmountProducts {
+    position: absolute;
+    top: 10px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--title-color);
+    color: var(--card-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .6rem;
+    border-radius: 50%;
+    font-weight: 700
+}
+
+.handleIconNavbar {
+    position: relative;
+    z-index: var(--z-handle-icon-navbar);
+}
+
+/* HOME */
+
+.home {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.home_header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.home_header-img {
+    background-color: var(--first-color);
+    display: flex;
+    align-items: center;
+    min-height: 400px;
+}
+
+.home_body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem;
+    gap: 1rem;
+}
+
+.home_body-title {
+    color: var(--title-color);
+    font-size: 2rem;
+}
+
+.home_body-paragragh {
+    color: var(--text-color-light);
+}
+
+.home_body-price {
+    color: var(--first-color);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.home_body-btn {
+    background-color: var(--button-color);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 15px 30px;
+    place-self: baseline;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: var(--card-color);
+    padding: 5rem 2rem
+}
+
+.content_footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem
+}
+
+.footer_info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem
+}
+
+.footer_info-title {
+    color: var(--title-color)
+}
+
+.footer_info ul {
+    display: grid;
+    gap: .5rem
+}
+
+.footer_info ul a {
+    color: var(--text-color)
+}
+
+.footer_info li:hover a {
+    color: var(--title-color)
+}
+
+.footer_info .footer_link-social {
+    display: flex;
+    flex-direction: row
+}
+
+.footer_info .footer_link-social i {
+    font-size: 1.5rem
+}
+
+footer>p {
+    margin-top: 3rem;
+    background-color: var(--first-color);
+    color: var(--container-color);
+    text-align: center;
+    padding: 1rem
+}
+
+footer>p>b>a {
+    font-weight: 700;
+    color: var(--button-color)
+}
+
+
+
+
+/* MEDIA QUERYS PARA RESPONSIVE */
+
+
+
+@media (min-width: 700px) {
+    #iconShowMenu {
+        display: none;
+    }
+
+    .navbar {
+        gap: 2rem
+    }
+
+    .navbar_menu {
+        position: static;
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        flex-direction: row;
+        gap: 1rem;
+        width: 100%;
+        justify-content: flex-start
+    }
+
+    .navbar_menu li {
+        font-size: 1rem;
+        font-weight: 500
+    }
+
+    .home {
+        flex-direction: row-reverse;
+        min-height: 80vh
+    }
+
+    .home_header {
+        grid-template-columns: 1fr
+    }
+
+    .home_header div:nth-child(1) {
+        display: none
+    }
+
+    .home_body {
+        justify-content: center
+    }
+
+    .home_body-title {
+        font-size: 3rem
+    }
+
+    .content_filter {
+        grid-template-columns: 1fr 1fr 1fr 1fr
+    }
+
+    .content_products {
+        padding-top: 20vh
+    }
+
+    .content_footer {
+        flex-direction: row;
+        justify-content: space-between
+    }
+
+    .contentCart {
+        width: 400px
+    }
+}
