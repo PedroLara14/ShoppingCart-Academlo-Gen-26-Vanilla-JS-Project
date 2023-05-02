@@ -43,6 +43,26 @@ function printProducts(db) {
   productsHTML.innerHTML = html;
 }
 
+function handleOpenCart() {
+  const openIconCartHTML = document.querySelector(".bx-shopping-bag");
+  const cartHTML = document.querySelector(".contentCart");
+
+  openIconCartHTML.addEventListener("click", function () {
+    cartHTML.classList.add("contentCart_show");
+  })
+}
+
+function handleCloseCart() {
+  const closeIconCartHTML = document.querySelector(".bx-x");
+  const cartHTML = document.querySelector(".contentCart");
+
+  closeIconCartHTML.addEventListener("click", function () {
+    cartHTML.classList.remove("contentCart_show");
+  });
+}
+
+
+
 async function main() {
   const db = {
     products:
@@ -52,6 +72,8 @@ async function main() {
   };
 
   printProducts(db);
+  handleOpenCart();
+  handleCloseCart();
 }
 
 main();
