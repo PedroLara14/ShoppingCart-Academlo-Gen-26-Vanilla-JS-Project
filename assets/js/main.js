@@ -288,13 +288,31 @@ function handleMenuLinks() {
 function handleNavMenu() {
   const navbarMenu = document.querySelector(".navbar_menu");
   const mobileNavMenu = document.querySelector(".handleIconNavbar");
+  const liProducts = document.querySelector(".li_product");
+  const liHome = document.querySelector(".li_home");
 
   mobileNavMenu.addEventListener("click", function () {
     navbarMenu.classList.toggle("navbar_menu-show");
     mobileNavMenu.classList.toggle("bxs-dashboard");
     mobileNavMenu.classList.toggle("bx-x");
+
+    if (mobileNavMenu.classList.contains("bx-x")) {
+      liProducts.addEventListener("click", function () {
+        navbarMenu.classList.remove("navbar_menu-show");
+        mobileNavMenu.classList.remove("bx-x");
+        mobileNavMenu.classList.add("bxs-dashboard");
+      })
+
+      liHome.addEventListener("click", function () {
+        navbarMenu.classList.remove("navbar_menu-show");
+        mobileNavMenu.classList.remove("bx-x");
+        mobileNavMenu.classList.add("bxs-dashboard");
+      });
+    }
   })
 }
+
+
 
 async function main() {
   const db = {
