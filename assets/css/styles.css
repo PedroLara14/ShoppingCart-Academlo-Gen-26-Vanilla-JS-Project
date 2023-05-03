@@ -59,6 +59,7 @@ html {
 
 body {
     background-color: var(--body-color);
+    transition: color .5s,background-color .5s;
 }
 
 a {
@@ -89,6 +90,13 @@ header {
     position: fixed;
     width: 100%;
     z-index: var(--z-header-nav);
+    transition: background-color .5s,height .5s,box-shadow .5s;
+}
+
+.header_show {
+    background-color: var(--container-color);
+    height: calc(var(--h-header) + 1rem);
+    box-shadow: var(--shadow-general)
 }
 
 
@@ -129,6 +137,10 @@ header {
     justify-content: center;
     align-items: center;
     transition: left .5s
+}
+
+.navbar_menu-show {
+    left: 0
 }
 
 
@@ -280,9 +292,101 @@ header {
     border-radius: 10px
 }
 
+.product__card {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem
+}
+
+.product__card--img {
+    border: 1px solid var(--first-color);
+    border-radius: .5rem;
+    background-color: var(--card-color)
+}
+
+.product__card--body {
+    display: grid
+}
+
+.product__card--body h4 {
+    color: var(--title-color)
+}
+
+.product__card--body p:nth-child(2) {
+    color: var(--text-color-light);
+    font-size: .8rem
+}
+
+.product__card--body p:nth-child(2) span,.product__card--body p:nth-child(3) {
+    color: var(--first-color)
+}
+
+.product__card--action {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--title-color)
+}
+
+.product__card--action .bx {
+    cursor: pointer;
+}
+
+
+.bx-trash-alt {
+    margin-left: 1rem;
+    color: var(--first-color)
+}
+
+.contentCart__total {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem
+}
+
+.contentCart__total--buy {
+    display: flex;
+    justify-content: space-between
+}
+
+.numberItems {
+    color: var(--text-color);
+    font-size: .8rem
+}
+
+.totalPrice {
+    color: var(--text-color);
+    font-weight: 700
+}
+
+.btn__buy {
+    padding: 1rem 0;
+    border: none;
+    background-color: var(--button-color);
+    box-shadow: var(--shadow-general);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color .5s,transform .5s
+}
+
+.btn__buy:hover {
+    background-color: var(--first-color)
+}
+
+.btn__buy:active {
+    transform: scale(1.02)
+}
 
 
 /* PRODUCTOS */
+
+.content_products {
+    padding: 5rem 1rem;
+    display: grid;
+    gap: 3rem;
+}
 
 .products {
     overflow: hidden;
@@ -317,7 +421,7 @@ header {
     min-height: 109px
 }
 
-.bx-plus {
+.product__info .bx-plus {
     cursor: pointer;
     position: absolute;
     right: 1rem;
@@ -331,7 +435,7 @@ header {
     transition: background-color .5s,color .5s
 }
 
-.bx-plus:hover {
+.product__info .bx-plus:hover {
     background-color: var(--first-color);
     color: var(--body-color);
 }
@@ -348,6 +452,19 @@ header {
     font-size: .8rem;
 }
 
+.product__info--stock-hide {
+    display: none;
+}
+
+.product__soldout {
+    background-color: var(--first-color);
+    color: var(--title-color);
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: .8rem;
+}
+
 .product__info p {
     color: var(--title-color);
     font-weight: 500;
@@ -355,7 +472,7 @@ header {
 
 .showModalProduct {
     transition: color .5s;
-    cursor: pointer;
+    cursor: pointer
 }
 
 .showModalProduct:hover {
@@ -420,6 +537,24 @@ footer>p>b>a {
     color: var(--button-color)
 }
 
+.load {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--body-color);
+    z-index: 1000;
+    display: grid;
+    justify-content: center;
+    align-items: center
+}
+
+.load svg {
+    fill: var(--first-color);
+    width: 100px;
+    animation: scroll 1.5s infinite
+}
 
 
 
@@ -429,7 +564,7 @@ footer>p>b>a {
 
 @media (min-width: 700px) {
     #iconShowMenu {
-        display: none;
+        display:none
     }
 
     .navbar {
@@ -488,5 +623,19 @@ footer>p>b>a {
 
     .contentCart {
         width: 400px
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(10px)
+    }
+
+    to {
+        transform: translateY(0)
     }
 }

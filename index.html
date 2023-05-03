@@ -10,9 +10,9 @@
     <script src="./assets/js/main.js" type="module" defer></script>
     <script src="./assets/library/mixitup.min.js"></script>
   </head>
-  <body>
+  <body class="body">
     <div id="app">
-      <header class="headerPrincipal">
+      <header class="headerPrincipal" class="header_show">
         <nav class="navbar container">
           <a href="#home" class="navbar_logo">
             <svg
@@ -34,10 +34,10 @@
 
           <ul class="navbar_menu" id="navbarMenu">
             <li>
-              <a class="link__active" href="#home">Home</a>
+              <a class="li_home link__active" href="#home">Home</a>
             </li>
             <li>
-              <a href="#products">Products</a>
+              <a href="#products" class="li_product">Products</a>
             </li>
           </ul>
 
@@ -83,7 +83,13 @@
         <div class="contentCart">
           <i class="bx bx-x" id="iconCloseCart"></i>
           <div class="contentCart__products"></div>
-          <div class="contentCart__total"></div>
+          <div class="contentCart__total">
+            <div class="contentCart__total--buy">
+              <p class="numberItems"></p>
+              <p class="totalPrice"></p>
+            </div>
+            <button class="btn__buy">Comprar</button>
+          </div>
         </div>
       </div>
 
