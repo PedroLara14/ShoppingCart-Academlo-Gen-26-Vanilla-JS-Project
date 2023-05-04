@@ -612,10 +612,19 @@ footer>p {
     padding: 1rem
 }
 
+footer>p>b>span {
+    color: var(--button-color);
+}
+
 footer>p>b>a {
     font-weight: 700;
-    color: var(--button-color)
+    color: var(--container-color)
 }
+
+footer>p>b>a>span {
+    color: var(--button-color)
+} 
+
 
 .load {
     position: fixed;
