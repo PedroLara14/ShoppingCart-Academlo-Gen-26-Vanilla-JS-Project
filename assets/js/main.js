@@ -312,6 +312,78 @@ function handleNavMenu() {
   })
 }
 
+function handleLoading() {
+  const loading = document.querySelector(".load");
+
+  function hideLoading() {
+    loading.style.display = "none";
+  }
+
+  setTimeout(hideLoading, 2000);
+}
+
+// function handleReload() {
+//  // Analizar porque al recargar se ejecuta el codigo pero no se mueve hacia la seccion Home
+
+//   window.addEventListener("DOMContentLoaded", () => {
+//     if (
+//       window.performance.getEntriesByType("navigation")[0].type === "reload"
+//     ) {
+//       const homeSection = document.querySelector("#home");
+//       homeSection.scrollIntoView({ behavior: "smooth" });
+//     }
+//   });
+// }
+
+// function printModalProduct(db) {
+//   const modalProduct = document.querySelector(".modalProduct");
+
+//   let html = "";
+//   for (const product of db.products) {
+//     html += `
+//     <div class="contentProduct">
+//       <i class="bx bxs-x-circle closeModal"></i>
+//       <div className="contentProduct__img">
+//         <img src="${product.image}" alt="imagen" />
+//       </div>
+//       <h3 class="contentProduct__name">
+//         ${product.name} - ${product.category}
+//       </h3>
+//       <p class="contentProduct__p">
+//       ${product.description}
+//       </p>
+//       <div class="contentProduct__info">
+//         <h3>
+//           $${product.price}.00
+//           <i class="bx bx-plus iconCloseModalProduct"></i>
+//         </h3>
+//         <p>Stock: ${product.quantity}</p>
+//       </div>
+//     </div>
+//     `;
+//   }
+
+//   modalProduct.innerHTML = html;
+// }
+
+// function handleOpenModalView() {
+//   const modalProductClick = document.querySelector(".showModalProduct");
+//   const modalProductView = document.querySelector(".modalProduct");
+//   modalProductClick.addEventListener("click", function () {
+//     modalProductView.classList.add("modalProduct__show");
+//   })
+// }
+
+// function handleCloseModalView() {
+//   const modalProductView = document.querySelector(".modalProduct");
+//   const closeIconModalProduct = document.querySelector(".iconCloseModalProduct");
+
+//   closeIconModalProduct.addEventListener("click", function () {
+//     modalProductView.classList.remove("modalProduct__show");
+//   });
+// }
+
+
 
 
 async function main() {
@@ -335,7 +407,11 @@ async function main() {
   handleScroll();
   handleMenuLinks();
   handleNavMenu();
-  
+  handleLoading();
+  // handleReload();
+  // printModalProduct(db);
+  // handleOpenModalView();
+  // handleCloseModalView();
 }
 
 main();

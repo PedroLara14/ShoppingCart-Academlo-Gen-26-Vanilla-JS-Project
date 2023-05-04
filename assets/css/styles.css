@@ -54,7 +54,7 @@ body::-webkit-scrollbar-track {
 }
 
 html {
-    scroll-behavior: smooth
+    scroll-behavior: smooth;
 }
 
 body {
@@ -477,6 +477,86 @@ header {
 
 .showModalProduct:hover {
     color: var(--first-color)
+}
+
+.modalProduct {
+    background-color: #00000090;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 1rem;
+    z-index: var(--z-modalproduct);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s ease-in-out,visibility .2s ease-in-out
+}
+
+.modalProduct__show {
+    opacity: 1;
+    visibility: visible
+}
+
+.contentProduct {
+    background-color: var(--container-color);
+    max-width: 400px;
+    padding: 1rem;
+    border-radius: 1rem;
+    position: relative
+}
+
+.closeModal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    font-size: 2rem
+}
+
+.contentProduct__name {
+    color: var(--title-color)
+}
+
+.contentProduct__p {
+    color: var(--text-color-light);
+    font-size: .9rem
+}
+
+.contentProduct__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px
+}
+
+.contentProduct__info h3 {
+    display: flex;
+    align-items: center;
+    gap: 1rem
+}
+
+.contentProduct__info .bx-plus {
+    background-color: var(--button-color);
+    color: #fff;
+    font-size: 1rem;
+    padding: .5rem;
+    border-radius: 50%;
+    align-self: flex-start;
+    cursor: pointer;
+    transition: background-color .5s
+}
+
+.contentProduct__info .bx-plus:hover {
+    background-color: var(--first-color)
+}
+
+.contentProduct__info p {
+    color: var(--text-color-light);
+    font-size: .9rem
 }
 
 /* FOOTER */
