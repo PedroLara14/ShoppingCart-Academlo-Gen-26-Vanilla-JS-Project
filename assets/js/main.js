@@ -22,11 +22,22 @@ function printProducts(db) {
     const soldOut = product.quantity
       ? `<i class='bx bx-plus' id='${product.id}'></i>`
       : `<span class="product__soldout">Sold Out</span>`;
+
     const stockHide = product.quantity
       ? `<span class="product__info--stock">Stock: ${product.quantity}</span>`
       : `<span class="product__info--stock-hide"></span>`;
+
+    let categoryClass = "";
+    if (product.category === "shirt") {
+      categoryClass = "shirt";
+    } else if (product.category === "hoddie") {
+      categoryClass = "hoddie";
+    } else if (product.category === "sweater") {
+      categoryClass = "sweater";
+    }
+
     html += `
-    <div class="product">
+    <div class="product ${categoryClass}">
 
       <div class="product__img">
         <img src="${product.image}" alt="imagen" />
@@ -232,7 +243,6 @@ function handlePrintAmountProducts(db) {
   }
 
   amountProducts.textContent = amount;
-
 }
 
 function handleDarkMode() {
@@ -241,7 +251,7 @@ function handleDarkMode() {
 
   btnDarkMode.addEventListener("click", function () {
     bodyHTML.classList.toggle("dark-theme");
-  })
+  });
 }
 
 function handleScroll() {
@@ -249,9 +259,10 @@ function handleScroll() {
   const header = document.querySelector(".headerPrincipal");
 
   function detectScroll() {
-    const homePosition = homeSection.getBoundingClientRect().top + window.scrollY;
+    const homePosition =
+      homeSection.getBoundingClientRect().top + window.scrollY;
     const currentPosition = window.scrollY;
-    
+
     if (currentPosition > homePosition) {
       header.classList.add("header_show");
     } else {
@@ -260,7 +271,6 @@ function handleScroll() {
   }
 
   window.addEventListener("scroll", detectScroll);
-
 }
 
 function handleMenuLinks() {
@@ -269,9 +279,9 @@ function handleMenuLinks() {
   const liHome = document.querySelector(".li_home");
 
   function detectScroll() {
-    const productPosition = productSection.getBoundingClientRect().top + window.scrollY;
+    const productPosition =
+      productSection.getBoundingClientRect().top + window.scrollY;
     const currentPosition = window.scrollY;
-
 
     if (currentPosition >= productPosition) {
       liProducts.classList.add("link__active");
@@ -301,7 +311,7 @@ function handleNavMenu() {
         navbarMenu.classList.remove("navbar_menu-show");
         mobileNavMenu.classList.remove("bx-x");
         mobileNavMenu.classList.add("bxs-dashboard");
-      })
+      });
 
       liHome.addEventListener("click", function () {
         navbarMenu.classList.remove("navbar_menu-show");
@@ -309,7 +319,7 @@ function handleNavMenu() {
         mobileNavMenu.classList.add("bxs-dashboard");
       });
     }
-  })
+  });
 }
 
 function handleLoading() {
@@ -322,18 +332,99 @@ function handleLoading() {
   setTimeout(hideLoading, 2000);
 }
 
-// function handleReload() {
-//  // Analizar porque al recargar se ejecuta el codigo pero no se mueve hacia la seccion Home
+function handleFilterOptions() {
+  // Gestionar botones filtro para activarse
+  const filters = document.querySelectorAll(".filter");
+  const acceptedFilters = [".shirt", ".hoddie", ".sweater", "all"];
 
-//   window.addEventListener("DOMContentLoaded", () => {
-//     if (
-//       window.performance.getEntriesByType("navigation")[0].type === "reload"
-//     ) {
-//       const homeSection = document.querySelector("#home");
-//       homeSection.scrollIntoView({ behavior: "smooth" });
-//     }
-//   });
-// }
+  for (let i = 0; i < filters.length; i++) {
+    filters[i].addEventListener("click", function () {
+      const dataFilter = this.getAttribute("data-filter");
+      if (acceptedFilters.includes(dataFilter)) {
+        filters.forEach((filter) => filter.classList.remove("filter__active"));
+        this.classList.add("filter__active");
+      }
+    });
+  }
+}
+
+function handleFilterActivated() {
+  // Logica para filtrar los productos
+  let productContainer = document.querySelector(".content_products");
+
+  let mixer = mixitup(productContainer, {
+    selectors: {
+      target: ".product",
+      control: ".filter",
+    },
+    animation: {
+      effects: "fade scaleY(-50%)",
+      duration: 500, // duración de la animación en milisegundos
+    },
+    classNames: {
+      block: "filter",
+      elementFilter: "filter__input",
+      elementSort: "sort__input",
+    },
+  });
+
+  document
+    .querySelector('.filter[data-filter=".shirt"]')
+    .addEventListener("click", function () {
+      let filterValue = this.dataset.filter;
+      mixer.filter(filterValue);
+    });
+
+  document
+    .querySelector('.filter[data-filter=".hoddie"]')
+    .addEventListener("click", function () {
+      let filterValue = this.dataset.filter;
+      mixer.filter(filterValue);
+    });
+
+  document
+    .querySelector('.filter[data-filter=".sweater"]')
+    .addEventListener("click", function () {
+      let filterValue = this.dataset.filter;
+      mixer.filter(filterValue);
+    });
+
+}
+
+function handleCategoryQuantity(db) {
+  let shirtQty = 0;
+  let hoddieQty = 0;
+  let sweaterQty = 0;
+
+  // Recorremos la lista de productos
+  db.products.forEach((product) => {
+    // Si el producto pertenece a la categoría "shirt", incrementamos la variable shirtQty
+    if (product.category === "shirt") {
+      shirtQty++;
+    }
+
+    // Si el producto pertenece a la categoría "hoddie", incrementamos la variable hoddieQty
+    if (product.category === "hoddie") {
+      hoddieQty++;
+    }
+
+    // Si el producto pertenece a la categoría "sweater", incrementamos la variable sweaterQty
+    if (product.category === "sweater") {
+      sweaterQty++;
+    }
+  });
+
+  document.querySelector(
+    '.filter[data-filter=".shirt"] p:last-child'
+  ).textContent = shirtQty + " products";
+  document.querySelector(
+    '.filter[data-filter=".hoddie"] p:last-child'
+  ).textContent = hoddieQty + " products";
+  document.querySelector(
+    '.filter[data-filter=".sweater"] p:last-child'
+  ).textContent = sweaterQty + " products";
+}
+
 
 // function printModalProduct(db) {
 //   const modalProduct = document.querySelector(".modalProduct");
@@ -366,6 +457,21 @@ function handleLoading() {
 //   modalProduct.innerHTML = html;
 // }
 
+
+
+// function handleReload() {
+//  // Analizar porque al recargar se ejecuta el codigo pero no se mueve hacia la seccion Home
+
+//   window.addEventListener("DOMContentLoaded", () => {
+//     if (
+//       window.performance.getEntriesByType("navigation")[0].type === "reload"
+//     ) {
+//       const homeSection = document.querySelector("#home");
+//       homeSection.scrollIntoView({ behavior: "smooth" });
+//     }
+//   });
+// }
+
 // function handleOpenModalView() {
 //   const modalProductClick = document.querySelector(".showModalProduct");
 //   const modalProductView = document.querySelector(".modalProduct");
@@ -382,9 +488,6 @@ function handleLoading() {
 //     modalProductView.classList.remove("modalProduct__show");
 //   });
 // }
-
-
-
 
 async function main() {
   const db = {
@@ -412,6 +515,9 @@ async function main() {
   // printModalProduct(db);
   // handleOpenModalView();
   // handleCloseModalView();
+  handleFilterOptions();
+  handleFilterActivated();
+  handleCategoryQuantity(db);
 }
 
 main();

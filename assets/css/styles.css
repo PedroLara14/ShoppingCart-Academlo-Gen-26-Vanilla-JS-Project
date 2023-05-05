@@ -388,6 +388,57 @@ header {
     gap: 3rem;
 }
 
+.content_filter {
+    margin: auto;
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem
+}
+
+.filter {
+    text-align: center;
+    cursor: pointer;
+    padding: .5rem;
+    transition: background-color .5s;
+    box-sizing: var(--shadow-general)
+}
+
+.filter p {
+    transition: color .5s
+}
+
+.filter p:nth-child(1) {
+    color: var(--text-color);
+    font-weight: 500
+}
+
+.filter p:nth-child(2) {
+    color: var(--text-color-light);
+    font-size: .8rem;
+    font-weight: 300
+}
+
+.filter:hover {
+    background-color: var(--button-color)
+}
+
+.filter:hover p {
+    color: #fff
+}
+
+.filter__active {
+    background-color: var(--button-color)
+}
+
+.filter__active p:nth-child(1) {
+    color: #fff
+}
+
+.filter__active p:nth-child(2) {
+    color: #fff
+}
+
 .products {
     overflow: hidden;
     display: grid;
