@@ -469,7 +469,7 @@ header {
     background-color: var(--container-color);
     padding: 1.5rem;
     position: relative;
-    min-height: 109px
+    min-height: 109px;
 }
 
 .product__info .bx-plus {

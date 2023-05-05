@@ -251,6 +251,7 @@ function handleDarkMode() {
 
   btnDarkMode.addEventListener("click", function () {
     bodyHTML.classList.toggle("dark-theme");
+    btnDarkMode.classList.toggle("bx-sun");
   });
 }
 
@@ -358,8 +359,13 @@ function handleFilterActivated() {
       control: ".filter",
     },
     animation: {
-      effects: "fade scaleY(-50%)",
-      duration: 500, // duración de la animación en milisegundos
+      effects: "fade scale(0.5)",
+      duration: 600,
+      easing: "cubic-bezier(0.165, 0.84, 0.44, 1)",
+      nudge: true,
+      reverseOut: true,
+      queue: false,
+      animateResizeContainer: false,
     },
     classNames: {
       block: "filter",
@@ -388,7 +394,6 @@ function handleFilterActivated() {
       let filterValue = this.dataset.filter;
       mixer.filter(filterValue);
     });
-
 }
 
 function handleCategoryQuantity(db) {
@@ -425,39 +430,101 @@ function handleCategoryQuantity(db) {
   ).textContent = sweaterQty + " products";
 }
 
+function handleModalProduct(db) {
+  const showModalButtons = document.querySelectorAll(".showModalProduct");
 
-// function printModalProduct(db) {
-//   const modalProduct = document.querySelector(".modalProduct");
+  showModalButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const product = db.products.find(
+        (prod) => prod.name === button.textContent.trim()
+      );
+      printModalProduct(product);
+      addToCartFromModal(db);
+    });
+  });
+}
 
-//   let html = "";
-//   for (const product of db.products) {
-//     html += `
-//     <div class="contentProduct">
-//       <i class="bx bxs-x-circle closeModal"></i>
-//       <div className="contentProduct__img">
-//         <img src="${product.image}" alt="imagen" />
-//       </div>
-//       <h3 class="contentProduct__name">
-//         ${product.name} - ${product.category}
-//       </h3>
-//       <p class="contentProduct__p">
-//       ${product.description}
-//       </p>
-//       <div class="contentProduct__info">
-//         <h3>
-//           $${product.price}.00
-//           <i class="bx bx-plus iconCloseModalProduct"></i>
-//         </h3>
-//         <p>Stock: ${product.quantity}</p>
-//       </div>
-//     </div>
-//     `;
-//   }
+function printModalProduct(product) {
+  const modalProduct = document.querySelector(".modalProduct");
+  modalProduct.classList.add("modalProduct__show");
 
-//   modalProduct.innerHTML = html;
-// }
+  const contentProduct = document.createElement("div");
+  contentProduct.classList.add("contentProduct");
 
+  const closeModal = document.createElement("i");
+  closeModal.classList.add("bx", "bxs-x-circle", "closeModal");
+  closeModal.addEventListener("click", () => {
+    modalProduct.classList.remove("modalProduct__show");
+    contentProduct.remove();
+  });
 
+  const contentProductImg = document.createElement("div");
+  contentProductImg.classList.add("contentProduct__img");
+
+  const img = document.createElement("img");
+  img.src = product.image;
+  img.alt = "Product image";
+
+  const contentProductName = document.createElement("h3");
+  contentProductName.classList.add("contentProduct__name");
+  contentProductName.textContent = `${product.name} - ${product.category}`;
+
+  const contentProductDescription = document.createElement("p");
+  contentProductDescription.classList.add("contentProduct__p");
+  contentProductDescription.textContent = product.description;
+
+  const contentProductInfo = document.createElement("div");
+  contentProductInfo.classList.add("contentProduct__info");
+
+  const contentProductPrice = document.createElement("h3");
+  contentProductPrice.textContent = `$${product.price}.00`;
+
+  const plusIcon = document.createElement("i");
+  plusIcon.classList.add("bx", "bx-plus");
+  plusIcon.id = product.id;
+
+  const stockInfo = document.createElement("p");
+  stockInfo.textContent = `Stock: ${product.quantity}`;
+
+  contentProductImg.appendChild(img);
+  contentProduct.appendChild(closeModal);
+  contentProduct.appendChild(contentProductImg);
+  contentProduct.appendChild(contentProductName);
+  contentProduct.appendChild(contentProductDescription);
+  contentProduct.appendChild(contentProductInfo);
+  contentProductInfo.appendChild(contentProductPrice);
+  contentProductPrice.appendChild(plusIcon);
+  contentProductInfo.appendChild(stockInfo);
+  modalProduct.appendChild(contentProduct);
+}
+
+function addToCartFromModal(db) {
+  const modalWindow = document.querySelector(".contentProduct");
+
+  if (modalWindow) {
+    modalWindow.addEventListener("click", function (e) {
+      if (e.target.classList.contains("bx-plus")) {
+        const id = Number(e.target.id);
+
+        const productFind = db.products.find((product) => product.id === id);
+
+        if (db.cart[productFind.id]) {
+          if (productFind.quantity === db.cart[productFind.id].amount) {
+            return alert("No tenemos mas stock de este producto");
+          }
+          db.cart[productFind.id].amount++;
+        } else {
+          db.cart[productFind.id] = { ...productFind, amount: 1 };
+        }
+
+        window.localStorage.setItem("cart", JSON.stringify(db.cart));
+        printProductsInCart(db);
+        printTotal(db);
+        handlePrintAmountProducts(db);
+      }
+    });
+  }
+}
 
 // function handleReload() {
 //  // Analizar porque al recargar se ejecuta el codigo pero no se mueve hacia la seccion Home
@@ -469,23 +536,6 @@ function handleCategoryQuantity(db) {
 //       const homeSection = document.querySelector("#home");
 //       homeSection.scrollIntoView({ behavior: "smooth" });
 //     }
-//   });
-// }
-
-// function handleOpenModalView() {
-//   const modalProductClick = document.querySelector(".showModalProduct");
-//   const modalProductView = document.querySelector(".modalProduct");
-//   modalProductClick.addEventListener("click", function () {
-//     modalProductView.classList.add("modalProduct__show");
-//   })
-// }
-
-// function handleCloseModalView() {
-//   const modalProductView = document.querySelector(".modalProduct");
-//   const closeIconModalProduct = document.querySelector(".iconCloseModalProduct");
-
-//   closeIconModalProduct.addEventListener("click", function () {
-//     modalProductView.classList.remove("modalProduct__show");
 //   });
 // }
 
@@ -512,12 +562,14 @@ async function main() {
   handleNavMenu();
   handleLoading();
   // handleReload();
-  // printModalProduct(db);
-  // handleOpenModalView();
-  // handleCloseModalView();
   handleFilterOptions();
   handleFilterActivated();
   handleCategoryQuantity(db);
+  handleModalProduct(db);
+
+  
+
+
 }
 
 main();
