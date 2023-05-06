@@ -449,12 +449,13 @@ header {
 
 .product {
     border-radius: 1rem;
-    overflow: hidden
 }
 
 .product__img {
     padding: 1rem;
-    background-color: var(--card-color)
+    background-color: var(--card-color);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
 }
 
 .product__img img {
@@ -470,6 +471,8 @@ header {
     padding: 1.5rem;
     position: relative;
     min-height: 109px;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .product__info .bx-plus {
