@@ -107,8 +107,9 @@ function addToCartFromProducts(db) {
 function printProductsInCart(db) {
   const cardProductsHTML = document.querySelector(".contentCart__products");
   let html = ``;
-  for (const product in db.cart) {
+  for (const product in db.cart) { 
     const { quantity, price, name, image, id, amount } = db.cart[product];
+    let subTotalProduct = amount * price;
     html += `
       <div class="product__card">
         <div class="product__card--img">
@@ -120,7 +121,7 @@ function printProductsInCart(db) {
           Stock: ${quantity} |
           <span>$${price}.00</span>
           </p>
-          <p>Subtotal:</p>
+          <p>Subtotal: $${subTotalProduct}.00</p>
           <div class="product__card--action" id="${id}">
             <i class="bx bx-minus"></i>
             <span>${amount} unit</span>
