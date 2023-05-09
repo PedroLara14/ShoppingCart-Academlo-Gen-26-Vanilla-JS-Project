@@ -11,6 +11,7 @@
     --body-color: hsl(206, 4%, 97%);
     --container-color: hsl(0, 0%, 100%);
     --border-color: hsl(0, 0%, 94%);
+    --footer-contact-hover: blue;
     --h-header: 3rem;
     --shadow-general: 0 .5rem 1rem rgba(0, 0, 0, .15);
     --z-header-nav: 1000;
@@ -30,6 +31,7 @@ body.dark-theme {
     --container-color: hsl(246, 16%, 12%);
     --border-color: hsl(0, 0%, 20%);
     --footer-text: hsl(0, 0%, 95%);
+    --footer-contact-hover: red;
 }
 
 body::-webkit-scrollbar {
@@ -243,6 +245,7 @@ header {
     letter-spacing: 1px;
     padding: 15px 30px;
     place-self: baseline;
+    cursor: pointer;
 }
 
 /* CARRITO DE COMPRAS */
@@ -637,6 +640,10 @@ footer {
     gap: 1rem
 }
 
+.footer_info a {
+    cursor: pointer;
+}
+
 .footer_info-title {
     color: var(--title-color)
 }
@@ -682,6 +689,10 @@ footer > p > b > span.darkModeFooterText {
 footer>p>b>a {
     font-weight: 700;
     color: var(--container-color)
+}
+
+footer > p > b > .footer-contact-link:hover {
+    color: var(--footer-contact-hover)
 }
 
 footer>p>b>a>span {

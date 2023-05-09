@@ -262,6 +262,9 @@ function handleDarkMode() {
   if (isDarkMode === "true") {
     bodyHTML.classList.add("dark-theme");
     btnDarkMode.classList.add("bx-sun");
+    footerTextHTML1.classList.add("darkModeFooterText");
+    footerTextHTML2.classList.add("darkModeFooterText");
+    footerTextHTML3.classList.add("darkModeFooterText");
   }
 
   btnDarkMode.addEventListener("click", function () {
@@ -561,14 +564,32 @@ function addToCartFromModal(db) {
 }
 
 function productScrollLink() {
-  const link = document.querySelector(".li_product");
+  const linkProductHeader = document.querySelector(".li_product");
+  const linkProductHome = document.querySelector(".home_body-btn");
+  const linkProductFooter = document.querySelectorAll(".footer_info-link");
   const target = document.querySelector(".content_products");
 
-  link.addEventListener("click", (event) => {
+  linkProductHeader.addEventListener("click", (event) => {
     event.preventDefault();
     target.scrollIntoView();
     window.scrollBy(0, +50);
     history.pushState(null, null, "/#products");
+  });
+
+  linkProductHome.addEventListener("click", (event) => {
+    event.preventDefault();
+    target.scrollIntoView();
+    window.scrollBy(0, +50);
+    history.pushState(null, null, "/#products");
+  });
+
+  linkProductFooter.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      target.scrollIntoView();
+      window.scrollBy(0, +50);
+      history.pushState(null, null, "/#products");
+    });
   });
 }
 
