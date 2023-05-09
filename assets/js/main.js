@@ -252,7 +252,11 @@ function handlePrintAmountProducts(db) {
 function handleDarkMode() {
   const btnDarkMode = document.querySelector(".bx-moon");
   const bodyHTML = document.querySelector(".body");
+  const footerTextHTML1 = document.querySelector(".footer-titles-1");
+  const footerTextHTML2 = document.querySelector(".footer-titles-2");
+  const footerTextHTML3 = document.querySelector(".footer-titles-3");
   const isDarkMode = localStorage.getItem("isDarkMode");
+  
 
   if (isDarkMode === "true") {
     bodyHTML.classList.add("dark-theme");
@@ -261,6 +265,9 @@ function handleDarkMode() {
 
   btnDarkMode.addEventListener("click", function () {
     bodyHTML.classList.toggle("dark-theme");
+    footerTextHTML1.classList.toggle("darkModeFooterText");
+    footerTextHTML2.classList.toggle("darkModeFooterText");
+    footerTextHTML3.classList.toggle("darkModeFooterText");
     btnDarkMode.classList.toggle("bx-sun");
     const isDarkMode = bodyHTML.classList.contains("dark-theme");
     localStorage.setItem("isDarkMode", isDarkMode);
@@ -372,7 +379,7 @@ function handleFilterActivated() {
     },
     animation: {
       effects: "fade scale(0.5)",
-      duration: 600,
+      duration: 400,
       easing: "cubic-bezier(0.165, 0.84, 0.44, 1)",
       nudge: true,
       reverseOut: true,
@@ -389,22 +396,28 @@ function handleFilterActivated() {
   document
     .querySelector('.filter[data-filter=".shirt"]')
     .addEventListener("click", function () {
-      let filterValue = this.dataset.filter;
-      mixer.filter(filterValue);
+      if (mixer.getState() === "loaded") {
+        let filterValue = this.dataset.filter;
+        mixer.filter(filterValue);
+      }
     });
 
   document
     .querySelector('.filter[data-filter=".hoddie"]')
     .addEventListener("click", function () {
-      let filterValue = this.dataset.filter;
-      mixer.filter(filterValue);
+      if (mixer.getState() === "loaded") {
+        let filterValue = this.dataset.filter;
+        mixer.filter(filterValue);
+      }
     });
 
   document
     .querySelector('.filter[data-filter=".sweater"]')
     .addEventListener("click", function () {
-      let filterValue = this.dataset.filter;
-      mixer.filter(filterValue);
+      if (mixer.getState() === "loaded") {
+        let filterValue = this.dataset.filter;
+        mixer.filter(filterValue);
+      }
     });
 }
 
@@ -546,6 +559,19 @@ function addToCartFromModal(db) {
   }
 }
 
+function productScrollLink() {
+  const link = document.querySelector(".li_product");
+  const target = document.querySelector(".content_products");
+
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    target.scrollIntoView();
+    window.scrollBy(0, +50);
+    history.pushState(null, null, "/#products");
+  });
+}
+
+
 async function main() {
   const db = {
     products:
@@ -573,6 +599,8 @@ async function main() {
   handleFilterActivated();
   handleCategoryQuantity(db);
   handleModalProduct(db);
+  productScrollLink();
+
 }
 
 main();

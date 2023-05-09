@@ -20,7 +20,7 @@
 }
 
 body.dark-theme {
-    --first-color: hsl(182, 53%, 74%);
+    --first-color: hsl(182, 53%, 60%);
     --button-color: hsl(246, 16%, 12%);
     --button-color-alt: hsl(0, 0%, 28%);
     --card-color: hsla(246, 16%, 5%);
@@ -28,7 +28,8 @@ body.dark-theme {
     --text-color: hsl(0, 0%, 75%);
     --body-color: hsl(249, 19%, 14%);
     --container-color: hsl(246, 16%, 12%);
-    --border-color: hsl(0, 0%, 20%)
+    --border-color: hsl(0, 0%, 20%);
+    --footer-text: hsl(0, 0%, 95%);
 }
 
 body::-webkit-scrollbar {
@@ -137,6 +138,10 @@ header {
     justify-content: center;
     align-items: center;
     transition: left .5s
+}
+
+.navbar_menu .li_product {
+    cursor: pointer;
 }
 
 .navbar_menu-show {
@@ -668,6 +673,10 @@ footer>p {
 
 footer>p>b>span {
     color: var(--button-color);
+}
+
+footer > p > b > span.darkModeFooterText {
+    color: var(--footer-text)
 }
 
 footer>p>b>a {
