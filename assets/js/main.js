@@ -107,7 +107,7 @@ function addToCartFromProducts(db) {
 function printProductsInCart(db) {
   const cardProductsHTML = document.querySelector(".contentCart__products");
   let html = ``;
-  for (const product in db.cart) { 
+  for (const product in db.cart) {
     const { quantity, price, name, image, id, amount } = db.cart[product];
     let subTotalProduct = amount * price;
     html += `
@@ -199,6 +199,7 @@ function printTotal(db) {
 
 function handleTotal(db) {
   const btnBuy = document.querySelector(".btn__buy");
+  const cartHTML = document.querySelector(".contentCart");
 
   btnBuy.addEventListener("click", function () {
     if (!Object.values(db.cart).length)
@@ -227,6 +228,8 @@ function handleTotal(db) {
     window.localStorage.setItem("products", JSON.stringify(db.products));
     window.localStorage.setItem("cart", JSON.stringify(db.cart));
 
+    cartHTML.classList.remove("contentCart_show");
+
     printTotal(db);
     printProductsInCart(db);
     printProducts(db);
@@ -249,10 +252,18 @@ function handlePrintAmountProducts(db) {
 function handleDarkMode() {
   const btnDarkMode = document.querySelector(".bx-moon");
   const bodyHTML = document.querySelector(".body");
+  const isDarkMode = localStorage.getItem("isDarkMode");
+
+  if (isDarkMode === "true") {
+    bodyHTML.classList.add("dark-theme");
+    btnDarkMode.classList.add("bx-sun");
+  }
 
   btnDarkMode.addEventListener("click", function () {
     bodyHTML.classList.toggle("dark-theme");
     btnDarkMode.classList.toggle("bx-sun");
+    const isDarkMode = bodyHTML.classList.contains("dark-theme");
+    localStorage.setItem("isDarkMode", isDarkMode);
   });
 }
 
@@ -480,9 +491,17 @@ function printModalProduct(product) {
   const contentProductPrice = document.createElement("h3");
   contentProductPrice.textContent = `$${product.price}.00`;
 
-  const plusIcon = document.createElement("i");
-  plusIcon.classList.add("bx", "bx-plus");
-  plusIcon.id = product.id;
+  let plusIcon;
+
+  if (product.quantity > 0) {
+    plusIcon = document.createElement("i");
+    plusIcon.classList.add("bx", "bx-plus");
+    plusIcon.id = product.id;
+  } else {
+    plusIcon = document.createElement("span");
+    plusIcon.classList.add("product__soldout");
+    plusIcon.textContent = "Sold Out";
+  }
 
   const stockInfo = document.createElement("p");
   stockInfo.textContent = `Stock: ${product.quantity}`;
@@ -527,19 +546,6 @@ function addToCartFromModal(db) {
   }
 }
 
-// function handleReload() {
-//  // Analizar porque al recargar se ejecuta el codigo pero no se mueve hacia la seccion Home
-
-//   window.addEventListener("DOMContentLoaded", () => {
-//     if (
-//       window.performance.getEntriesByType("navigation")[0].type === "reload"
-//     ) {
-//       const homeSection = document.querySelector("#home");
-//       homeSection.scrollIntoView({ behavior: "smooth" });
-//     }
-//   });
-// }
-
 async function main() {
   const db = {
     products:
@@ -547,6 +553,7 @@ async function main() {
       (await getProducts()),
     cart: JSON.parse(window.localStorage.getItem("cart")) || {},
   };
+  
 
   printProducts(db);
   handleOpenCart();
@@ -562,15 +569,10 @@ async function main() {
   handleMenuLinks();
   handleNavMenu();
   handleLoading();
-  // handleReload();
   handleFilterOptions();
   handleFilterActivated();
   handleCategoryQuantity(db);
   handleModalProduct(db);
-
-  
-
-
 }
 
 main();
