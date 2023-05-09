@@ -234,6 +234,7 @@ function handleTotal(db) {
     printProductsInCart(db);
     printProducts(db);
     handlePrintAmountProducts(db);
+    handleModalProduct(db);
   });
 }
 
